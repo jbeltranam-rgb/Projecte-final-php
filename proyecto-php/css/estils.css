@@ -1,0 +1,193 @@
+/* ============================================================
+   PROJECTE CLÍNICA VETERINÀRIA - ESTILS PROFESSIONALS "GLASS"
+   ============================================================ */
+
+:root {
+    /* Paleta de colors estil Apple */
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --apple-blue: #0071e3;
+    --apple-green: #28cd41;
+    --apple-red: #ff3b30;
+    --text-dark: #1d1d1f;
+    --text-gray: #86868b;
+    --bg-gradient: linear-gradient(135deg, #e2ebf0 0%, #cfd9df 100%);
+}
+
+/* Configuració General */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text-dark);
+    margin: 0;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Contenidor Principal (Efecte Vidre Líquid) */
+main {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 40px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px); /* Desenfoque clau del Glassmorphism */
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    min-height: 60vh;
+}
+
+/* Capçalera Sticky */
+header {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--glass-border);
+    text-align: center;
+}
+
+header h1 {
+    font-weight: 700;
+    font-size: 1.6rem;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+/* Menú amb Botons Rodons (Píndola) */
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    font-size: 0.85rem;
+    padding: 8px 22px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px; /* Fa els botons totalment rodons */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+nav ul li a:hover {
+    background: var(--apple-blue);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+}
+
+/* Taules de Dades */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 30px 0;
+}
+
+th {
+    background: rgba(0, 0, 0, 0.04);
+    padding: 16px;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+}
+
+td {
+    padding: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+tr:hover td {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Botons d'Acció (CRUD) */
+.btn {
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-add { 
+    background: var(--apple-blue); 
+    color: white; 
+    margin-bottom: 20px;
+}
+
+.btn-edit { 
+    background: rgba(0, 113, 227, 0.1); 
+    color: var(--apple-blue); 
+}
+
+.btn-delete { 
+    background: rgba(255, 59, 48, 0.1); 
+    color: var(--apple-red); 
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+/* Formularis i Inputs */
+form {
+    max-width: 600px;
+    margin: 20px 0;
+}
+
+label {
+    display: block;
+    margin: 15px 0 5px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+input, select, textarea {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 12px;
+    width: 100%;
+    font-size: 1rem;
+    transition: border-color 0.3s, background 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--apple-blue);
+    background: white;
+}
+
+/* Secció d'Estadístiques (Resum.php) */
+.stat-card {
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    backdrop-filter: blur(5px);
+}
+
+/* Peu de pàgina */
+footer {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--text-gray);
+    font-size: 0.8rem;
+}

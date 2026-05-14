@@ -1,0 +1,27 @@
+# Historial de terminal
+.bash_history
+.bash_logout
+.bashrc
+
+# Configuraciones de Git y editores
+.gitconfig
+.selected_editor
+
+# Archivos de estado del sistema y sudo
+.sudo_as_admin_successful
+
+# Archivos temporales de VirtualBox (vboxclient)
+.vboxclient-*.pid
+
+# Caché del sistema y de aplicaciones
+.cache/
+event-sound-cache.tdb.*
+
+# Archivos con nombres de hash largos (comunes en .cache o carpetas temporales)
+[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]*
+
+# Otros archivos comunes que suelen ensuciar el home
+.gnupg/
+.local/
+.ssh/
+.profile
