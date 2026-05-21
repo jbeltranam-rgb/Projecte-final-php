@@ -1,58 +1,70 @@
 <?php
-// Incluimos los archivos base necesarios [1, 3]
+// Tasca 4: Formulari d'alta de propietaris
+// Incluim la connexió a la base de dades i la capçalera (reutilització de codi) [1, 2]
 include 'db.php';
 include 'header.php';
 
-$missatge = ""; // Variable para mostrar alertas al usuario
+$missatge = ""; 
 
-// Comprobamos si el formulario ha sido enviado
+// Comprovem si el formulari s'ha enviat mitjançant el mètode POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recogemos y saneamos los datos del formulario
-    $nom = mysqli_real_escape_with_string($conn, $_POST['nom']);
-    $telefon = mysqli_real_escape_with_string($conn, $_POST['telefon']);
-    $email = mysqli_real_escape_with_string($conn, $_POST['email']);
-    $adreca = mysqli_real_escape_with_string($conn, $_POST['adreca']);
+    
+    /* 
+       CORRECCIÓ: Utilitzem mysqli_real_escape_string() per sanejar les dades.
+       Això evita l'error "Call to undefined function" i protegeix la BD [2].
+    */
+    $nom = mysqli_real_escape_string($conn, $_POST['nom']);
+    $telefon = mysqli_real_escape_string($conn, $_POST['telefon']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $adreca = mysqli_real_escape_string($conn, $_POST['adreca']);
 
-    // Sentencia SQL para insertar el nuevo propietario [2]
+    // Sentència SQL per inserir el nou propietari segons l'esquema definit [3]
     $sql = "INSERT INTO Propietaris (nom, telefon, email, adreca) 
             VALUES ('$nom', '$telefon', '$email', '$adreca')";
 
     if (mysqli_query($conn, $sql)) {
-        $missatge = "<p style='color: green;'>Propietari registrat correctament!</p>";
+        $missatge = "<p style='color: #28cd41; font-weight: bold;'>Propietari registrat correctament!</p>";
     } else {
-        // Gestión de errores: por ejemplo, si el email ya existe (UNIQUE) [3]
-        $error = mysqli_errno($conn) == 1062 ? "L'email ja està registrat." : mysqli_error($conn);
-        $missatge = "<p style='color: red;'>Error en registrar: $error</p>";
+        // Gestió d'errors: Compte amb la restricció UNIQUE de l'email [2, 3]
+        if (mysqli_errno($conn) == 1062) {
+            $missatge = "<p style='color: #ff3b30; font-weight: bold;'>Error: Aquest correu electrònic ja està registrat.</p>";
+        } else {
+            $missatge = "<p style='color: #ff3b30; font-weight: bold;'>Error en registrar: " . mysqli_error($conn) . "</p>";
+        }
     }
 }
 ?>
 
-<section>
-    <h2>Afegir Nou Propietari</h2>
-    
-    <!-- Mostramos el mensaje de éxito o error si existe [3] -->
-    <?php echo $missatge; ?>
+<main>
+    <section>
+        <h2>Afegir Nou Propietari</h2>
+        
+        <!-- Zona de missatges per a l'usuari [2] -->
+        <?php echo $missatge; ?>
 
-    <form action="nou_propietari.php" method="POST">
-        <label for="nom">Nom complet (obligatori):</label>
-        <input type="text" name="nom" id="nom" required>
+        <!-- Formulari d'alta amb els camps requerits a la Tasca 4 [1, 3] -->
+        <form action="nou_propietari.php" method="POST">
+            <label for="nom">Nom complet (obligatori):</label>
+            <input type="text" name="nom" id="nom" required placeholder="Ex: Joan Pere">
 
-        <label for="telefon">Telèfon:</label>
-        <input type="text" name="telefon" id="telefon">
+            <label for="telefon">Telèfon:</label>
+            <input type="text" name="telefon" id="telefon" placeholder="600000000">
 
-        <label for="email">Correu electrònic (únic):</label>
-        <input type="email" name="email" id="email">
+            <label for="email">Correu electrònic (únic):</label>
+            <input type="email" name="email" id="email" placeholder="usuari@exemple.com">
 
-        <label for="adreca">Adreça:</label>
-        <input type="text" name="adreca" id="adreca">
+            <label for="adreca">Adreça:</label>
+    <input type="text" name="adreca" id="adreca" placeholder="Carrer Major, 1">
 
-        <div style="margin-top: 20px;">
-            <button type="submit" class="btn btn-add">Guardar Propietari</button>
-            <a href="propietaris.php" class="btn" style="background-color: #95a5a6;">Tornar al llistat</a>
-        </div>
-    </form>
-</section>
+            <div style="margin-top: 30px;">
+                <button type="submit" class="btn btn-add">Guardar Propietari</button>
+                <a href="propietaris.php" class="btn" style="background: rgba(0,0,0,0.05); color: #1d1d1f;">Tornar al llistat</a>
+            </div>
+        </form>
+    </section>
+</main>
 
 <?php 
+// Incluim el peu de pàgina per tancar les etiquetes HTML [1]
 include 'footer.php'; 
 ?>

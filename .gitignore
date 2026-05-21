@@ -25,3 +25,6 @@ event-sound-cache.tdb.*
 .local/
 .ssh/
 .profile
+
+docker-env/db
+*.sql
